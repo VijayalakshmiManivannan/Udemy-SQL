@@ -434,9 +434,103 @@ WHERE
 
 select * from departments;
 
+-- delete statement
+
+CREATE TABLE Area (
+    patient_id VARCHAR(255) PRIMARY KEY,
+    streetNo INT NOT NULL,
+    city VARCHAR(40),
+    pincode INT NOT NULL
+);
 
 
+delete from Area;
+describe Area;
+drop table Area;
+
+-- drop, truncate,delete
 
 
+-- round()
+
+SELECT 
+    ROUND(AVG(salary), 2)
+FROM
+    salaries;
+    
+
+-- if null/coalesce()
+
+alter table department_dup
+change column dept_name dept_name varchar(40);
+
+alter table department_dup
+change column dept_name dept_name varchar(40) null;
+
+SELECT 
+    *
+FROM
+    department_dup
+ORDER BY dept_no;
+
+insert into department_dup (dept_no) values ('d011'),('d012');
 
 
+delete from department_dup
+where dept_no = 'd011' and dept_no = 'd012';
+
+select * from department_dup
+order by dept_no;
+
+alter table employees.department_dup
+add column dept_manager varchar(255) null after dept_name;
+
+select * from department_dup
+order by dept_no;
+
+commit;
+
+SELECT 
+    dept_no,
+    IFNULL(dept_name,
+            'Department name not provided') as dept_name
+FROM
+    department_dup;
+    
+    
+-- coalesce()
+
+
+SELECT 
+    dept_no,
+    COALESCE(dept_name,
+            'Department name not provided') as dept_name
+FROM
+    department_dup;
+    
+
+SELECT 
+    dept_no,
+    dept_name,
+    COALESCE(dept_manager, dept_name, 'N/A') AS dept_manager
+FROM
+    department_dup;
+
+SELECT 
+    dept_no,
+    dept_name,
+    COALESCE(dept_no, dept_name) AS dept_info
+FROM
+    department_dup
+ORDER BY dept_no;
+
+
+SELECT 
+    IFNULL(dept_no, 'N/A') as dept_no,
+    IFNULL(dept_name,
+            'Department name not Provided') AS dept_name,
+    COALESCE(dept_no, dept_name) AS dept_info
+FROM
+    department_dup
+ORDER BY dept_no;
+   
